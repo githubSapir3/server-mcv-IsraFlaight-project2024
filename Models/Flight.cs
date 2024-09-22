@@ -1,28 +1,35 @@
-// Models/Flight.cs
+﻿using System;
+using System.Collections.Generic;
 
-using System;
+namespace mcv_project2024.Models
+{
     public class Flight
     {
         public int Id { get; set; }
-        public required Plane Plane { get; set; } // Assuming Aircraft is another class in your project
-        public required string DepartureLocation { get; set; }
-        public required string ArrivalLocation { get; set; }
-        public required DateTime DepartureTime { get; set; }
+        public int AirplaneId { get; set; }
+        public Airplane Airplane { get; set; }
+        public string DepartureLocation { get; set; }
+        public string ArrivalLocation { get; set; }
+        public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
-        public Flight(){}
-        public Flight(int id, Plane plane, string departureLocation, string arrivalLocation, DateTime departureTime, DateTime arrivalTime)
+
+        // Keep this as the correct definition
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
+        public Flight(int airplaneId, string departureLocation, string arrivalLocation, DateTime departureTime, DateTime arrivalTime)
         {
-            Id = id;
-            Plane = plane;
+            AirplaneId = airplaneId;
             DepartureLocation = departureLocation;
             ArrivalLocation = arrivalLocation;
             DepartureTime = departureTime;
             ArrivalTime = arrivalTime;
         }
 
+        public Flight() { }
+
         public TimeSpan GetFlightDuration()
         {
             return ArrivalTime - DepartureTime;
         }
     }
-
+}

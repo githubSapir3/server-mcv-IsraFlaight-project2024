@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 [ApiController]
 public class UsersController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
+    private readonly AirplaneService _context;
 
-    public UsersController(ApplicationDbContext context)
+    public UsersController(AirplaneService context)
     {
         _context = context;
     }

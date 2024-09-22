@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>mcv_project2024</RootNamespace>
+	<LangVersion>11</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

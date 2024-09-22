@@ -1,38 +1,51 @@
-using Microsoft.EntityFrameworkCore; // שימוש ב-EF Core
-using DB; // ייבוא של קבצי ה-DB (בהנחה שכבר קיים)
+using Microsoft.EntityFrameworkCore;
+using DB;
+using mcv_project2024.Models.Services;
+using mcv_project2024.Models; // ייבוא של המודלים שלך
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// הגדרת HttpClient עם כתובת ה-API שלך
-builder.Services.AddHttpClient("ApiClient", client =>
+internal class Program
 {
-    // הגדרת בסיס הכתובת של ה-API שלך
-    client.BaseAddress = new Uri("https://localhost:7292");
-});
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+        // Add services to the container.
+        builder.Services.AddDbContext<DB.ApplicationDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+        // הגדרת HttpClient עם כתובת ה-API שלך
+        builder.Services.AddHttpClient("ApiClient", client =>
+        {
+            // הגדרת בסיס הכתובת של ה-API שלך
+            client.BaseAddress = new Uri("https://localhost:7292");
+        });
 
-var app = builder.Build();
+        // רישום של השירותים שלך
+        builder.Services.AddScoped<BookingService>(); // רישום של BookingService
+        builder.Services.AddScoped<FlightService>();  // רישום של FlightService
+        builder.Services.AddScoped<AirplaneService>();  // רישום של PlaneService
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+        builder.Services.AddControllers();
+
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

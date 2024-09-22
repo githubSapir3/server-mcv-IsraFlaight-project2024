@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace mcv_project2024.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AirplaneService))]
     [Migration("20240905201349_InitialCreate")]
     partial class InitialCreate
     {
