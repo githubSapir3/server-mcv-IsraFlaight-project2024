@@ -1,21 +1,16 @@
 
-using System.Threading.Tasks;
-
-
-
-public class Booking
+namespace mcv_project2024.Models
 {
-    public int bookingID { get; set; } // מפתח ראשי
-    public int passengerID { get; set; }
-    public required Flight Flight { get; set; }
-
-    
-    public Booking(int passengerId, int flightNum)
+    public class Booking
     {
-        this.passengerID = passengerId;
-        this.Flight = FlightService.GetGetByIdAsync(flightId).Result;
+        public int bookingID { get; set; } // מפתח ראשי
+        public int passengerID { get; set; }
+        public required Flight flight { get; set; }
 
+        public Booking(int passengerId, Flight flight)
+        {
+            this.passengerID = passengerId;
+            this.flight = flight;
+        }
     }
-    
-
 }

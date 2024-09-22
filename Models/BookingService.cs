@@ -4,6 +4,20 @@ public class BookingService : IApiService<Booking>
 {
     private readonly List<Booking> _bookings = new List<Booking>(); // אחסון זמני ברשימה
 
+    private readonly FlightService _flightService;
+
+    public BookingService(FlightService flightService)
+    {
+        _flightService = flightService;
+    }
+
+    public async Task<Booking> CreateBookingAsync(int passengerId, int flightId)
+    {
+        Flight flight = await _flightService.GetByIdAsync(flightId); // הבאת הטיסה לפני יצירת ההזמנה
+        Booking booking = new Booking(passengerId, flight);  // העברת אובייקט הטיסה לבנאי
+        return booking;
+    }
+
     public async Task<Booking> AddAsync(Booking booking)
     {
         _bookings.Add(booking);
@@ -25,7 +39,7 @@ public class BookingService : IApiService<Booking>
         {
             // עדכון ההזמנה
             booking.passengerID = updatedBooking.passengerID;
-            booking.Flight = updatedBooking.Flight;
+            booking.flight = updatedBooking.flight;
         }
         return await Task.FromResult(booking);
     }
