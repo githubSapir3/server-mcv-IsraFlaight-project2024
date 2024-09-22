@@ -25,7 +25,7 @@ public class UsersController : ControllerBase
          
     var user = new User(0, userDto.FullName, userDto.Email, userDto.Password);
 
-        _context.Users.Add(user);
+       _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(nameof(RegisterUser), new { id = user.Id }, user);
@@ -35,7 +35,9 @@ public class UsersController : ControllerBase
 // Models/UserRegistrationDto.cs
 public class UserRegistrationDto
 {
+     public required string ID { get; set; }
     public required string FullName { get; set; }
     public required string Email { get; set; }
     public required string Password { get; set; }
+     public required string Role { get; set; }
 }
