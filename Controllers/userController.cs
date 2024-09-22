@@ -1,4 +1,5 @@
 using DB;
+using mcv_project2024.Migrations;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,9 +8,11 @@ using System.Threading.Tasks;
 [ApiController]
 public class UsersController : ControllerBase
 {
-    private readonly AirplaneService _context;
+    private readonly ApplicationDbContext _context;  // או שם אחר של DbContext שמתאים למערכת שלך
 
-    public UsersController(AirplaneService context)
+    //private readonly AirplaneService _context;
+
+    public UsersController(ApplicationDbContext context)
     {
         _context = context;
     }

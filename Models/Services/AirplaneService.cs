@@ -12,6 +12,8 @@ public class AirplaneService : IApiService<Airplane>
         _context = context;
     }
 
+    public object Users { get; internal set; }
+
     public async Task<Airplane> AddAsync(Airplane airplane)
     {
         _context.Airplanes.Add(airplane);
@@ -64,5 +66,8 @@ public class AirplaneService : IApiService<Airplane>
         return null;
     }
 
-   
+    internal async Task SaveChangesAsync()
+    {
+        throw new NotImplementedException();
+    }
 }
