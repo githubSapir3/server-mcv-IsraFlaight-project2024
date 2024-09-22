@@ -73,9 +73,9 @@ namespace mcv_project2024.Controllers
     // DTO for airplane data transfer
     public class AirplaneDto
     {
-        public string Manufacturer { get; set; }
-        public string Nickname { get; set; }
+        public required string Manufacturer { get; set; }
+        public required string Nickname { get; set; }
         public int YearOfManufacture { get; set; }
-        public string ImageUrl { get; set; }
+        public required string ImageUrl { get; set; }
     }
 }

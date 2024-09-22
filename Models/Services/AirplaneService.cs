@@ -47,7 +47,9 @@ public class AirplaneService : IApiService<Airplane>
 
     public async Task<Airplane> GetByIdAsync(int id)
     {
+#pragma warning disable CS8603 // Possible null reference return.
         return await _context.Airplanes.FindAsync(id);
+#pragma warning restore CS8603 // Possible null reference return.
     }
 
     public async Task<Airplane> UpdateAsync(int id, Airplane item)
