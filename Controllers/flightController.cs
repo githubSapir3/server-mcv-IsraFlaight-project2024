@@ -19,18 +19,18 @@ namespace mcv_project2024.Controllers
             _flightBookingService = flightBookingService;
         }
 
-        //יצירת טיסה
+        // יצירת טיסה
         [HttpPost("schedule")]
-        public async Task<IActionResult> ScheduleFlight([FromBody] Flight flightScheduleDto)
+        public async Task<IActionResult> ScheduleFlight([FromBody] Flight flight)
         {
             try
             {
                 var newFlight = await _flightService.CreateAsync(
-                    flightScheduleDto.DepartureLocation,
-                    flightScheduleDto.ArrivalLocation,
-                    flightScheduleDto.AirplaneId,
-                    flightScheduleDto.DepartureTime,
-                    flightScheduleDto.ArrivalTime
+                    flight.DepartureLocation,
+                    flight.ArrivalLocation,
+                    flight.AirplaneId,
+                    flight.DepartureTime,
+                    flight.ArrivalTime
                 );
 
                 return CreatedAtAction(nameof(GetFlightById), new { id = newFlight.FlightId }, newFlight);
@@ -43,11 +43,11 @@ namespace mcv_project2024.Controllers
 
         // הזמנת טיסה
         [HttpPost("book")]
-        public async Task<IActionResult> BookFlight([FromBody] Booking flightBookingDto)
+        public async Task<IActionResult> BookFlight([FromBody] Booking booking)
         {
             try
             {
-                var ticket = await _flightBookingService.CreateBookingAsync(flightBookingDto.PassengerID, flightBookingDto.FlightId);
+                var ticket = await _flightBookingService.CreateBookingAsync(booking.PassengerID, booking.FlightId);
                 return Ok(ticket);
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ namespace mcv_project2024.Controllers
             }
         }
 
-        // לצורך בדיקת השבת קבל זמני טיסה
+        // קבלת רשימת טיסות
         [HttpGet("schedule")]
         public async Task<IActionResult> GetFlightSchedule()
         {
@@ -64,7 +64,7 @@ namespace mcv_project2024.Controllers
             return Ok(flights);
         }
 
-        // Check if flight coincides with Shabbat
+        // בדיקת טיסה בשבת
         [HttpGet("check-shabbat/{id}")]
         public async Task<IActionResult> CheckFlightOnShabbat(int id)
         {
@@ -80,12 +80,11 @@ namespace mcv_project2024.Controllers
 
         private async Task<bool> CheckShabbat(DateTime departureTime, DateTime arrivalTime)
         {
-            // Call to HebCal API to check Shabbat times
-            // Implement API call logic here
-            return false; // Change this to actual logic based on HebCal API response
+            // כאן תתבצע קריאה ל-API של HebCal
+            return false; // צריך לעדכן את הלוגיקה על סמך תגובת ה-API
         }
 
-        // מחזיר טיסה לפי מזהה
+        // קבלת טיסה לפי מזהה
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFlightById(int id)
         {
@@ -98,13 +97,13 @@ namespace mcv_project2024.Controllers
             return Ok(flight);
         }
 
-                // עדכון פרטי טיסה
+        // עדכון פרטי טיסה
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateFlight(int id, [FromBody] Flight flightScheduleDto)
+        public async Task<IActionResult> UpdateFlight(int id, [FromBody] Flight flight)
         {
             try
             {
-                var updatedFlight = await _flightService.UpdateAsync(id, flightScheduleDto);
+                var updatedFlight = await _flightService.UpdateAsync(id, flight);
                 if (updatedFlight != null)
                 {
                     return Ok(updatedFlight);
@@ -117,7 +116,7 @@ namespace mcv_project2024.Controllers
             }
         }
 
-                // Delete a flight
+        // מחיקת טיסה
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFlight(int id)
         {
@@ -128,7 +127,5 @@ namespace mcv_project2024.Controllers
             }
             return NotFound($"Flight with ID {id} not found.");
         }
-
     }
-
 }
