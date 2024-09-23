@@ -1,4 +1,4 @@
-namespace mcv_project2024.Models
+namespace mcv_project2024.DAL
 {
     public class Booking
     {

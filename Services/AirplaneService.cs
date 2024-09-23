@@ -1,7 +1,7 @@
 ﻿using DB;
-using mcv_project2024.Models.Services;
 using Microsoft.EntityFrameworkCore;
-using mcv_project2024.Models;
+using mcv_project2024.DAL;
+using mcv_project2024.Services;
 
 public class AirplaneService : IApiService<Airplane>
 {

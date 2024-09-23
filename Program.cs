@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using DB;
-using mcv_project2024.Models.Services;
-using mcv_project2024.Models; // ייבוא של המודלים שלך
 
 internal class Program
 {
@@ -24,7 +22,7 @@ internal class Program
         builder.Services.AddScoped<BookingService>(); // רישום של BookingService
         builder.Services.AddScoped<FlightService>();  // רישום של FlightService
         builder.Services.AddScoped<AirplaneService>();  // רישום של PlaneService
-
+      //  builder.Services.AddScoped<UserService>();
         builder.Services.AddControllers();
 
                  builder.Services.AddEndpointsApiExplorer();

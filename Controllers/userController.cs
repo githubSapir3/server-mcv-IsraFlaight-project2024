@@ -1,6 +1,6 @@
 using DB;
 using mcv_project2024.Migrations;
-using mcv_project2024.Models;
+using mcv_project2024.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

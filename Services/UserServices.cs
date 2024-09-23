@@ -1,5 +1,5 @@
 using DB;
-using mcv_project2024.Models;
+using mcv_project2024.DAL;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using static UsersController;

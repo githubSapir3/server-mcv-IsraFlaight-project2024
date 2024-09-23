@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mcv_project2024.Models
+namespace mcv_project2024.DAL
 {
     public class Flight
     {

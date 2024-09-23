@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using mcv_project2024.Models;
-using mcv_project2024.Models.Services;
+using mcv_project2024.DAL;
+using mcv_project2024.Services;
 using System;
 using System.Threading.Tasks;
 
