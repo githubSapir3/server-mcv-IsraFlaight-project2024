@@ -1,4 +1,4 @@
-using mcv_project2024.DAL;
+using mcv_project2024.Module.DAL;
 using System.Net.Sockets;
 using System.Numerics;
 using Microsoft.EntityFrameworkCore;

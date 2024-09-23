@@ -1,6 +1,6 @@
 using DB;
 using mcv_project2024.Migrations;
-using mcv_project2024.DAL;
+using mcv_project2024.Module.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 [ApiController]
 public class UsersController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
     private readonly UserService _userService;  // הזרקת השירות
-
+ 
     public UsersController(ApplicationDbContext context, UserService userService)
     {
-        _context = context;
-        _userService = userService;  // הזרקת השירות
+        _userService = userService;   // הזרקת השירות
     }
 
     // פונקציה ליצירת משתמש חדש
-    [HttpPost("create_user")]
-    public async Task<IActionResult> CreateUser([FromBody] User userDto)
+    [HttpPost("create")]
+    public async Task<IActionResult> Create([FromBody] User userDto)
     {
         if (userDto == null)
         {
@@ -56,8 +54,8 @@ public class UsersController : ControllerBase
     }
 
     // פונקציה לעדכון פרטי משתמש
-    [HttpPut("update_user_details")]
-    public async Task<IActionResult> UpdateUserDetails([FromBody] User updateDto)
+    [HttpPut("update/{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] User updateDto)
     {
         if (updateDto == null)
         {
@@ -74,30 +72,11 @@ public class UsersController : ControllerBase
         return Ok("User updated successfully.");
     }
 
-    // פונקציה להזמנת טיסה
-    [HttpPost("book_flight")]
-    public async Task<IActionResult> BookFlight([FromBody] Booking bookingDto)
+    // פונקציה למחיקת לקוח
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
-        if (bookingDto == null)
-        {
-            return BadRequest("Invalid booking data.");
-        }
-
-        var result = await _userService.BookFlightAsync(bookingDto.PassengerID, bookingDto.FlightId);  // שימוש בשירות שהוזרק
-
-        if (!result)
-        {
-            return BadRequest("Flight booking failed.");
-        }
-
-        return Ok("Flight booked successfully.");
-    }
-
-     // פונקציה למחיקת לקוח
-    [HttpDelete("delete_user/{userId}")]
-    public async Task<IActionResult> DeleteUser(int userId)
-    {
-        var result = await _userService.DeleteUserAsync(userId);
+        var result = await _userService.DeleteUserAsync(id);
 
         if (!result)
         {
@@ -108,10 +87,10 @@ public class UsersController : ControllerBase
     }
 
     // פונקציה להצגת פרטי לקוח לפי מזהה
-    [HttpGet("get_user/{userId}")]
-    public async Task<IActionResult> GetUser(int userId)
+    [HttpGet("get by/{id}")]
+    public async Task<IActionResult> GetById(int id)
     {
-        var user = await _userService.GetUserByIdAsync(userId);
+        var user = await _userService.GetUserByIdAsync(id);
 
         if (user == null)
         {
@@ -120,16 +99,5 @@ public class UsersController : ControllerBase
 
         return Ok(user);
     }
-    /*
-    // פונקציה לרישום משתמש
-    [HttpPost("register")]
-    public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto userDto)
-    {
-        if (userDto == null)
-        {
-            return BadRequest("Invalid data.");
-        }
 
-        var user = new User(0, userDto.FullName, user
-        */
 }

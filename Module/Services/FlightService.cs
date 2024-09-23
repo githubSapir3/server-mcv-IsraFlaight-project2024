@@ -1,4 +1,4 @@
-﻿using mcv_project2024.DAL;
+﻿using mcv_project2024.Module.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;

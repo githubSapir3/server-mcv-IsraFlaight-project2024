@@ -1,7 +1,7 @@
 ﻿using DB;
 using Microsoft.EntityFrameworkCore;
-using mcv_project2024.DAL;
-using mcv_project2024.Services;
+using mcv_project2024.Module.Services;
+using mcv_project2024.Module.DAL;
 
 public class AirplaneService : IApiService<Airplane>
 {
@@ -25,6 +25,7 @@ public class AirplaneService : IApiService<Airplane>
     {
         var newPlane = new Airplane(manufacturer, nickname, yearOfManufacture, imageUrl); // הוספת הפרמטרים לקונסטרוקטור
         await AddAsync(newPlane); // הוספת המטוס למאגר הנתונים
+
         return newPlane;
     }
 

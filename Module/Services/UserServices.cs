@@ -1,5 +1,5 @@
 using DB;
-using mcv_project2024.DAL;
+using mcv_project2024.Module.DAL;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using static UsersController;
@@ -69,21 +69,6 @@ public class UserService
         return await _context.Users.FindAsync(userId);
     }
 
-
-    // פונקציה להזמנת טיסה
-    public async Task<bool> BookFlightAsync(int userId, int flightId)
-    {
-        var booking = new Booking
-        {
-            PassengerID = userId,
-            FlightId = flightId,
-           
-        };
-
-        _context.Bookings.Add(booking);
-        await _context.SaveChangesAsync();
-        return true;
-    }
 
     
 }

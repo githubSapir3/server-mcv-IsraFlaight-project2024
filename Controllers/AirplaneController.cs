@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mcv_project2024.DO;
-using mcv_project2024.DAL;
+using mcv_project2024.Module.DAL;
 
 namespace mcv_project2024.Controllers
 {
@@ -28,7 +28,7 @@ namespace mcv_project2024.Controllers
         }
 
         // Get Airplane by ID
-        [HttpGet("{id}")]
+        [HttpGet("get by/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var airplane = await _airplaneService.GetByIdAsync(id);

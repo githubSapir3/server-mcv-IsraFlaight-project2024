@@ -1,5 +1,4 @@
-
-namespace mcv_project2024.DAL
+namespace mcv_project2024.Module.DAL
 {
     public class Airplane
 
@@ -9,8 +8,6 @@ namespace mcv_project2024.DAL
         public string Nickname { get; set; }
         public int YearOfManufacture { get; set; }
         public string ImageUrl { get; set; }
-
-        public ICollection<Flight> Flights { get; set; } = new List<Flight>();
 
         public Airplane(string manufacturer, string nickname, int yearOfManufacture, string imageUrl)
         {

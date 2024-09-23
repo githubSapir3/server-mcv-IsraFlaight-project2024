@@ -1,4 +1,4 @@
-﻿namespace mcv_project2024.Services
+﻿namespace mcv_project2024.Module.Services
 {
     public interface IApiService<T>
     {

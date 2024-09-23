@@ -22,7 +22,7 @@ internal class Program
         builder.Services.AddScoped<BookingService>(); // רישום של BookingService
         builder.Services.AddScoped<FlightService>();  // רישום של FlightService
         builder.Services.AddScoped<AirplaneService>();  // רישום של PlaneService
-      //  builder.Services.AddScoped<UserService>();
+        builder.Services.AddScoped<UserService>();
         builder.Services.AddControllers();
 
                  builder.Services.AddEndpointsApiExplorer();

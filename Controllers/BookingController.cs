@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using mcv_project2024.DAL;
+using mcv_project2024.DO;
+using mcv_project2024.Module.DAL;
 
 namespace mcv_project2024.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BookingController : ControllerBase
+    public class BookingController : ControllerBase , ICRUD<Booking>
     {
         private readonly BookingService _bookingService;
 
@@ -15,13 +16,13 @@ namespace mcv_project2024.Controllers
         }
 
 
-
+        // Create Booking
         [HttpPost("create")]
-        public async Task<IActionResult> CreateBooking(int passengerId, int flightId)
+        public async Task<IActionResult> Create(int passengerId, int flightId)
         {
             try
             {
-                var booking = await _bookingService.CreateBookingAsync(passengerId, flightId);
+                var booking = await _bookingService.CreateAsync(passengerId, flightId);
                 var addedBooking = await _bookingService.AddAsync(booking);
                 return Ok(addedBooking);
             }
@@ -31,9 +32,9 @@ namespace mcv_project2024.Controllers
             }
         }
 
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookingById(int id)
+        // Get Booking by ID
+        [HttpGet("get by/{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
             var booking = await _bookingService.GetByIdAsync(id);
             if (booking != null)
@@ -43,17 +44,17 @@ namespace mcv_project2024.Controllers
             return NotFound($"Booking with ID {id} not found.");
         }
 
-
+        // Get all Booking
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllBookings()
+        public async Task<IActionResult> GetAll()
         {
             var bookings = await _bookingService.GetAllAsync();
             return Ok(bookings);
         }
 
-
+        // Update Booking
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> UpdateBooking(int id, [FromBody] Booking updatedBooking)
+        public async Task<IActionResult> Update(int id, [FromBody] Booking updatedBooking)
         {
             var booking = await _bookingService.UpdateAsync(id, updatedBooking);
             if (booking != null)
@@ -63,9 +64,9 @@ namespace mcv_project2024.Controllers
             return NotFound($"Booking with ID {id} not found.");
         }
 
-
+        // Delete Booking
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteBooking(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var result = await _bookingService.DeleteAsync(id);
             if (result)
@@ -74,14 +75,10 @@ namespace mcv_project2024.Controllers
             }
             return NotFound($"Booking with ID {id} not found.");
         }
+
     }
 
-    public class BookingRegistrationDto
-    {
-        public int bookingID { get; set; }
-        public int passengerID { get; set; }
-        public Flight flight { get; set; }
-    }
+
 
 
 }

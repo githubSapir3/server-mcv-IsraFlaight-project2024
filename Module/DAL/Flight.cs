@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mcv_project2024.DAL
+namespace mcv_project2024.Module.DAL
 {
     public class Flight
     {
@@ -12,9 +12,6 @@ namespace mcv_project2024.DAL
         public string ArrivalLocation { get; set; }
         public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
-
-        // Keep this as the correct definition
-        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
         public Flight(int airplaneId, string departureLocation, string arrivalLocation, DateTime departureTime, DateTime arrivalTime)
         {

@@ -1,25 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
-using mcv_project2024.DAL;
-using mcv_project2024.Services;
+using mcv_project2024.Module.Services;
 using System;
 using System.Threading.Tasks;
+using mcv_project2024.Module.DAL;
 
 namespace mcv_project2024.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FlightsController : ControllerBase
+    public class FlightsController : ControllerBase, ICRUD<Flight>
     {
+    
         private readonly FlightService _flightService;
-        private readonly BookingService _flightBookingService;
 
         public FlightsController(FlightService flightService, BookingService flightBookingService)
         {
             _flightService = flightService;
-            _flightBookingService = flightBookingService;
         }
 
-        // יצירת טיסה
+        // Creat flight
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Flight flight)
         {
@@ -33,7 +32,7 @@ namespace mcv_project2024.Controllers
                     flight.ArrivalTime
                 );
 
-                return CreatedAtAction(nameof(GetFlightById), new { id = newFlight.FlightId }, newFlight);
+                return CreatedAtAction(nameof(GetById), new { id = newFlight.FlightId }, newFlight);
             }
             catch (Exception ex)
             {
@@ -42,18 +41,18 @@ namespace mcv_project2024.Controllers
         }
 
 
-        // קבלת רשימת כל הטיסות
+        // Get all flight
         [HttpGet("all")]
-        public async Task<IActionResult> GetFlightSchedule()
+        public async Task<IActionResult> GetAll()
         {
             var flights = await _flightService.GetAllAsync();
             return Ok(flights);
         }
 
 
-        // קבלת טיסה לפי מזהה
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetFlightById(int id)
+        // Get Flight by ID
+        [HttpGet("get by/{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
             var flight = await _flightService.GetByIdAsync(id);
             if (flight == null)
@@ -64,9 +63,9 @@ namespace mcv_project2024.Controllers
             return Ok(flight);
         }
 
-        // עדכון פרטי טיסה
+        // Update flight
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> UpdateFlight(int id, [FromBody] Flight flight)
+        public async Task<IActionResult> Update(int id, [FromBody] Flight flight)
         {
             try
             {
@@ -83,9 +82,9 @@ namespace mcv_project2024.Controllers
             }
         }
 
-        // מחיקת טיסה
+        // Delete flight
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteFlight(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var result = await _flightService.DeleteAsync(id);
             if (result)

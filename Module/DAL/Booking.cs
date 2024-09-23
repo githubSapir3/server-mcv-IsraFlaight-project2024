@@ -1,11 +1,10 @@
-namespace mcv_project2024.DAL
+namespace mcv_project2024.Module.DAL
 {
     public class Booking
     {
         public int BookingID { get; set; } // מפתח ראשי
         public int PassengerID { get; set; } // מזהה נוסע
         public int FlightId { get; set; } // מפתח זר ל-Flight
-        public Flight Flight { get; set; } // קשר לטיסה
 
         public Booking(int passengerId, int flightId)
         {

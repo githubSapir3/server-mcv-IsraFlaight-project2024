@@ -2,8 +2,10 @@
 {
     public class BookingDto
     {
-        public int PassengerID { get; set; } 
-        public int FlightID { get; set; } 
+        public int BookingID { get; set; }
+        public int PassengerID { get; set; }
+        public int FlightId { get; set; }
+        public int FlightNumber { get; set; }
     }
 
 }
