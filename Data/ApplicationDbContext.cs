@@ -18,6 +18,7 @@ namespace DB
         public DbSet<User> Users { get; set; }
 
         public DbSet<Booking> Bookings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
