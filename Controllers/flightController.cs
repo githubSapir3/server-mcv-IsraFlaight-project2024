@@ -20,8 +20,8 @@ namespace mcv_project2024.Controllers
         }
 
         // יצירת טיסה
-        [HttpPost("schedule")]
-        public async Task<IActionResult> ScheduleFlight([FromBody] Flight flight)
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] Flight flight)
         {
             try
             {
@@ -41,48 +41,15 @@ namespace mcv_project2024.Controllers
             }
         }
 
-        // הזמנת טיסה
-        [HttpPost("book")]
-        public async Task<IActionResult> BookFlight([FromBody] Booking booking)
-        {
-            try
-            {
-                var ticket = await _flightBookingService.CreateBookingAsync(booking.PassengerID, booking.FlightId);
-                return Ok(ticket);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
-        // קבלת רשימת טיסות
-        [HttpGet("schedule")]
+        // קבלת רשימת כל הטיסות
+        [HttpGet("all")]
         public async Task<IActionResult> GetFlightSchedule()
         {
             var flights = await _flightService.GetAllAsync();
             return Ok(flights);
         }
 
-        // בדיקת טיסה בשבת
-        [HttpGet("check-shabbat/{id}")]
-        public async Task<IActionResult> CheckFlightOnShabbat(int id)
-        {
-            var flight = await _flightService.GetByIdAsync(id);
-            if (flight == null)
-            {
-                return NotFound($"Flight with ID {id} not found.");
-            }
-
-            bool isOnShabbat = await CheckShabbat(flight.DepartureTime, flight.ArrivalTime);
-            return Ok(new { FlightId = id, IsOnShabbat = isOnShabbat });
-        }
-
-        private async Task<bool> CheckShabbat(DateTime departureTime, DateTime arrivalTime)
-        {
-            // כאן תתבצע קריאה ל-API של HebCal
-            return false; // צריך לעדכן את הלוגיקה על סמך תגובת ה-API
-        }
 
         // קבלת טיסה לפי מזהה
         [HttpGet("{id}")]
@@ -98,7 +65,7 @@ namespace mcv_project2024.Controllers
         }
 
         // עדכון פרטי טיסה
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateFlight(int id, [FromBody] Flight flight)
         {
             try
@@ -117,7 +84,7 @@ namespace mcv_project2024.Controllers
         }
 
         // מחיקת טיסה
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteFlight(int id)
         {
             var result = await _flightService.DeleteAsync(id);

@@ -14,9 +14,9 @@ namespace mcv_project2024.Controllers
             _bookingService = bookingService;
         }
 
-       
-        [HttpPost]
-        [Route("create")]
+
+
+        [HttpPost("create")]
         public async Task<IActionResult> CreateBooking(int passengerId, int flightId)
         {
             try
@@ -31,8 +31,8 @@ namespace mcv_project2024.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("{id}")]
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetBookingById(int id)
         {
             var booking = await _bookingService.GetByIdAsync(id);
@@ -43,18 +43,16 @@ namespace mcv_project2024.Controllers
             return NotFound($"Booking with ID {id} not found.");
         }
 
-       
-        [HttpGet]
-        [Route("all")]
+
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllBookings()
         {
             var bookings = await _bookingService.GetAllAsync();
             return Ok(bookings);
         }
 
-      
-        [HttpPut]
-        [Route("update/{id}")]
+
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateBooking(int id, [FromBody] Booking updatedBooking)
         {
             var booking = await _bookingService.UpdateAsync(id, updatedBooking);
@@ -65,9 +63,8 @@ namespace mcv_project2024.Controllers
             return NotFound($"Booking with ID {id} not found.");
         }
 
-        
-        [HttpDelete]
-        [Route("delete/{id}")]
+
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteBooking(int id)
         {
             var result = await _bookingService.DeleteAsync(id);
@@ -81,7 +78,7 @@ namespace mcv_project2024.Controllers
 
     public class BookingRegistrationDto
     {
-        public int bookingID { get; set; } 
+        public int bookingID { get; set; }
         public int passengerID { get; set; }
         public Flight flight { get; set; }
     }
