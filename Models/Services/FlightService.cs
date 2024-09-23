@@ -1,5 +1,6 @@
 ﻿using mcv_project2024.Models;
 using mcv_project2024.Models.Services;
+using Microsoft.AspNetCore.Mvc;
 
 public class FlightService : IApiService<Flight>
     {
@@ -49,6 +50,8 @@ public class FlightService : IApiService<Flight>
             // Find the flight by id
             return await Task.Run(() => _flights.FirstOrDefault(f => f.Id == id));
         }
+
+    
 
         public async Task<Flight> UpdateAsync(int id, Flight item)
         {
