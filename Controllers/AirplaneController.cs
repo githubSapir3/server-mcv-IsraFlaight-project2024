@@ -23,7 +23,7 @@ namespace mcv_project2024.Controllers
 
             var newAirplane = new Airplane(airplaneDto.Manufacturer, airplaneDto.Nickname, airplaneDto.YearOfManufacture, airplaneDto.ImageUrl);
             var createdAirplane = await _airplaneService.AddAsync(newAirplane); // Using the service to add the airplane
-            return CreatedAtAction(nameof(GetPlaneById), new { id = createdAirplane.Id }, createdAirplane); // Return 201 status with the new airplane's details
+            return CreatedAtAction(nameof(GetPlaneById), new { id = createdAirplane.AirplaneId }, createdAirplane); // Return 201 status with the new airplane's details
         }
 
         // Get Airplane by ID

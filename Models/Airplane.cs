@@ -4,7 +4,7 @@ namespace mcv_project2024.Models
     public class Airplane
 
     {
-        public int Id { get; set; }
+        public int AirplaneId { get; set; }
         public string Manufacturer { get; set; }
         public string Nickname { get; set; }
         public int YearOfManufacture { get; set; }

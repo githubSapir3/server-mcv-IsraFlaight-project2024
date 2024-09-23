@@ -33,7 +33,7 @@ namespace mcv_project2024.Controllers
                     flightScheduleDto.ArrivalTime
                 );
 
-                return CreatedAtAction(nameof(GetFlightById), new { id = newFlight.Id }, newFlight);
+                return CreatedAtAction(nameof(GetFlightById), new { id = newFlight.FlightId }, newFlight);
             }
             catch (Exception ex)
             {

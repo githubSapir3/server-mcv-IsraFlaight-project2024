@@ -30,7 +30,7 @@ public class FlightService : IApiService<Flight>
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var flight = _flights.FirstOrDefault(f => f.Id == id);
+            var flight = _flights.FirstOrDefault(f => f.FlightId == id);
             if (flight != null)
             {
                 await Task.Run(() => _flights.Remove(flight));
@@ -48,14 +48,14 @@ public class FlightService : IApiService<Flight>
         public async Task<Flight> GetByIdAsync(int id)
         {
             // Find the flight by id
-            return await Task.Run(() => _flights.FirstOrDefault(f => f.Id == id));
+            return await Task.Run(() => _flights.FirstOrDefault(f => f.FlightId == id));
         }
 
     
 
         public async Task<Flight> UpdateAsync(int id, Flight item)
         {
-            var flight = _flights.FirstOrDefault(f => f.Id == id);
+            var flight = _flights.FirstOrDefault(f => f.FlightId == id);
             if (flight != null)
             {
                 flight.Airplane = item.Airplane;
