@@ -89,16 +89,22 @@ public class UsersController : ControllerBase
 
     // פונקציה להצגת פרטי לקוח לפי מזהה
     [HttpGet("get by/{id}")]
-    public async Task<IActionResult> GetById(int id)
+public async Task<IActionResult> GetById(string id)
+{
+    // המרת ה-ID ל-int
+    if (!int.TryParse(id, out int userId))
     {
-        var user = await _userService.GetUserByIdAsync(id);
-
-        if (user == null)
-        {
-            return NotFound("User not found.");
-        }
-
-        return Ok(user);
+        return BadRequest("Invalid ID format.");
     }
+
+    var user = await _userService.GetUserByIdAsync(userId);
+
+    if (user == null)
+    {
+        return NotFound("User not found.");
+    }
+
+    return Ok(user);
+}
 
 }
