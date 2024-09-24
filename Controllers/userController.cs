@@ -56,7 +56,7 @@ public class UsersController : ControllerBase
 
     // פונקציה לעדכון פרטי משתמש
     [HttpPut("update/{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] User updateDto)
+    public async Task<IActionResult> Update( [FromBody] User updateDto)
     {
         if (updateDto == null)
         {
@@ -75,7 +75,7 @@ public class UsersController : ControllerBase
 
     // פונקציה למחיקת לקוח
     [HttpDelete("delete/{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete([FromBody] int id)
     {
         var result = await _userService.DeleteUserAsync(id);
 

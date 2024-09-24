@@ -4,7 +4,7 @@ using mcv_project2024.DO;
 using mcv_project2024.Module.Services;
 using mcv_project2024.Module.DAL;
 
-public class BookingService 
+public class BookingService
 {
     private readonly ApplicationDbContext _context; // Database context
 
@@ -90,6 +90,20 @@ public class BookingService
         return false;
     }
 
+    internal async Task<List<BookingDto>> GetByPassengerIdAsync(int passenger_id)
+    {
+        var bookingsWithFlights = await (from booking in _context.Bookings
+                                         join flight in _context.Flights
+                                         on booking.FlightId equals flight.FlightId
+                                         where booking.PassengerID == passenger_id
+                                         select new BookingDto
+                                         {
+                                             BookingID = booking.BookingID,
+                                             PassengerID = booking.PassengerID,
+                                             FlightId = booking.FlightId,
+                                             FlightNumber = flight.FlightId
+                                         }).ToListAsync();
 
-
+        return bookingsWithFlights;
+    }
 }

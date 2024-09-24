@@ -34,7 +34,7 @@ namespace mcv_project2024.Controllers
 
         // Get Booking by ID
         [HttpGet("get by/{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById([FromBody] int id)
         {
             var booking = await _bookingService.GetByIdAsync(id);
             if (booking != null)
@@ -43,6 +43,20 @@ namespace mcv_project2024.Controllers
             }
             return NotFound($"Booking with ID {id} not found.");
         }
+
+
+        // Get all Booking by passenger ID
+        [HttpGet("Get all Booking by passenger ID/{id}")]
+        public async Task<IActionResult> GetByPassengerId(int id)
+        {
+            var bookings = await _bookingService.GetByPassengerIdAsync(id);
+            if (bookings != null)
+            {
+                return Ok(bookings);
+            }
+            return NotFound($"Booking with ID {id} not found.");
+        }
+
 
         // Get all Booking
         [HttpGet("all")]
