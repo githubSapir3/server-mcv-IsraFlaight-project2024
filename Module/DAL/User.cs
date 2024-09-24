@@ -14,18 +14,7 @@ public class User
         Password = password;
         Role = role;
     }
-
 }
 
 
-//public virtual Dictionary<string, object> GetUserInfo()
-//    {
-//        return new Dictionary<string, object>
-//        {
-//            { "id", UserId },
-//            { "full_name", FullName },
-//            { "email", Email }
-//        };
-//    }
-//}
 

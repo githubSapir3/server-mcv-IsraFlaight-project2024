@@ -17,7 +17,7 @@ public class UserService
     // פונקציה ליצירת משתמש חדש
     public async Task<bool> CreateUserAsync(User userDto)
     {
-        var user = new User(userDto.UserId, userDto.FullName, userDto.Email, userDto.Password, UserRole.Passenger); // נניח שתפקיד ברירת המחדל הוא 'User'
+        var user = new User(userDto.UserId , userDto.FullName, userDto.Email, userDto.Password, UserRole.Passenger); // נניח שתפקיד ברירת המחדל הוא 'User'
 
 
         _context.Users.Add(user);
@@ -41,7 +41,7 @@ public class UserService
         var user = await _context.Users.FindAsync(updateDto.UserId);
 
         if (user == null) return false;
-        user.UserId = updateDto.UserId;
+
         user.FullName = updateDto.FullName;
         user.Email = updateDto.Email;
         user.Password = updateDto.Password;

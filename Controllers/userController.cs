@@ -1,7 +1,7 @@
 using DB;
-using mcv_project2024.DO;
 using mcv_project2024.Migrations;
 using mcv_project2024.Module.DAL;
+using mcv_project2024.DO;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -37,14 +37,14 @@ public class UsersController : ControllerBase
 
     // פונקציה לאימות משתמש
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginInfo loginInfo)
+    public async Task<IActionResult> Login([FromBody] LoginInfo loginDto)
     {
-        if (loginInfo == null)
+        if (loginDto == null)
         {
             return BadRequest("Invalid login data.");
         }
 
-        var user = await _userService.LoginAsync(loginInfo);  // שימוש בשירות שהוזרק
+        var user = await _userService.LoginAsync(loginDto);  // שימוש בשירות שהוזרק
 
         if (user == null)
         {
