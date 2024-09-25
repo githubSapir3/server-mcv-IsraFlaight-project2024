@@ -88,7 +88,7 @@ public class UsersController : ControllerBase
     }
 
     // פונקציה להצגת פרטי לקוח לפי מזהה
-    [HttpGet("get by/{id}")]
+    [HttpGet("getBy/{id}")]
 public async Task<IActionResult> GetById(string id)
 {
     // המרת ה-ID ל-int

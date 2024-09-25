@@ -51,7 +51,7 @@ namespace mcv_project2024.Controllers
 
 
         // Get Flight by ID
-        [HttpGet("get by/{id}")]
+        [HttpGet("getBy/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var flight = await _flightService.GetByIdAsync(id);
