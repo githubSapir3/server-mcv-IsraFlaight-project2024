@@ -80,4 +80,13 @@ public class FlightService
         }
         return false;
     }
+
+    public async Task<List<Flight>> GetLandingFlightsInTLVAsync(DateTime currentTime, DateTime endTime)
+    {
+    return await _context.Flights
+        .Where(flight => flight.ArrivalLocation == "Tel Aviv" && flight.ArrivalTime >= currentTime && flight.ArrivalTime <= endTime)
+        .ToListAsync();
+    }
+
+    
 }

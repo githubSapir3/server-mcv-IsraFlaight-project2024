@@ -82,6 +82,8 @@ namespace mcv_project2024.Controllers
             }
         }
 
+        
+
         // Delete flight
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -92,6 +94,13 @@ namespace mcv_project2024.Controllers
                 return Ok($"Flight with ID {id} deleted successfully.");
             }
             return NotFound($"Flight with ID {id} not found.");
+        }
+
+        [HttpGet("landing-in-tlv")]
+        public async Task<IActionResult> GetLandingFlightsInTLV([FromQuery] DateTime currentTime, [FromQuery] DateTime endTime)
+        {
+            var flights = await _flightService.GetLandingFlightsInTLVAsync(currentTime, endTime);
+            return Ok(flights);
         }
     }
 }
