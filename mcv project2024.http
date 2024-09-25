@@ -1,4 +1,4 @@
-@mcv_project2024_HostAddress = http://localhost:5133
+@mcv_project2024_HostAddress = http://localhost:7292
 
 GET {{mcv_project2024_HostAddress}}/weatherforecast/
 Accept: application/json

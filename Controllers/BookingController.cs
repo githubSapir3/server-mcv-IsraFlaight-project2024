@@ -46,7 +46,7 @@ namespace mcv_project2024.Controllers
 
 
         // Get all Booking by passenger ID
-        [HttpGet("Get all Booking by passenger ID/{id}")]
+        [HttpGet("GetByPassengerId/{id}")]
         public async Task<IActionResult> GetByPassengerId(int id)
         {
             var bookings = await _bookingService.GetByPassengerIdAsync(id);
