@@ -7,7 +7,6 @@ namespace mcv_project2024.Module.DAL
     {
         public int FlightId { get; set; }
         public int AirplaneId { get; set; }
-        public Airplane Airplane { get; set; }
         public string DepartureLocation { get; set; }
         public string ArrivalLocation { get; set; }
         public DateTime DepartureTime { get; set; }
