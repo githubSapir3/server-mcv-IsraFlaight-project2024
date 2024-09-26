@@ -1,8 +1,10 @@
 public class HebcalResponse
 {
     public required Location Location { get; set; }
-    public required Range Range { get; set; }
+    public required ShabbatInfo shabbatInfo { get; set; }
     public required List<Item> Items { get; set; }
+    public required Range range { get; set; }
+    
 }
 
 public class Location
@@ -21,12 +23,13 @@ public class Item
 {
     public required string Title { get; set; } 
     public required DateTime Date { get; set; } 
-    public required string Category { get; set; } 
+    public required string Category { get; set; }
+    public object Description { get; internal set; }
 }
 
 public class ShabbatInfo
 {
-    public string? Parasha { get; set; } 
-    public DateTime? CandleLighting { get; set; } 
-    public DateTime? Havdalah { get; set; } 
+    public string? parashat { get; set; } 
+    public DateTime? candles { get; set; } 
+    public DateTime? havdalah { get; set; } 
 }
