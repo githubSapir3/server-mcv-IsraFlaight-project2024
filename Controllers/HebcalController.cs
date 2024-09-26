@@ -117,36 +117,34 @@ public class HebcalController : ControllerBase
         }
     }
 
+    
     [HttpGet("byDateAndLocation")]
-    public async Task<IActionResult> GetByDateAndLocation(string location, string date)
+public async Task<IActionResult> GetByDateAndLocation(string location, string date)
+{
+    if (string.IsNullOrWhiteSpace(location) || string.IsNullOrWhiteSpace(date))
     {
-        if (string.IsNullOrWhiteSpace(location) || string.IsNullOrWhiteSpace(date))
-        {
-            return BadRequest("Both location and date parameters are required.");
-        }
-
-        if (!_cities.TryGetValue(location, out int geonameId))
-        {
-            return BadRequest($"City '{location}' not found.");
-        }
-
-        string url = $"https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=on&mod=on&nx=on&ss=on&mf=on&c=on&geo=geoname&geonameid={geonameId}&start={date}";
-
-        try
-        {
-            var response = await _httpClient.GetStringAsync(url);
-            var hebcalData = JsonConvert.DeserializeObject<HebcalResponse>(response);
-
-            if (hebcalData?.Items == null)
-            {
-                return BadRequest("Failed to parse Hebcal data or Items is null.");
-            }
-
-            return Ok(hebcalData);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
+        return BadRequest("Both location and date parameters are required.");
     }
+
+    // כאן נשמר את השם במדויק
+    string url = $"https://www.hebcal.com/hebcal?v=1&cfg=json&geo=city&location={Uri.EscapeDataString(location)}&date={Uri.EscapeDataString(date)}";
+
+    try
+    {
+        var response = await _httpClient.GetStringAsync(url);
+        var hebcalData = JsonConvert.DeserializeObject<HebcalResponse>(response);
+
+        if (hebcalData?.Items == null)
+        {
+            return BadRequest("Failed to parse Hebcal data or Items is null.");
+        }
+
+        return Ok(hebcalData);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
+
 }
